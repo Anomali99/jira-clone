@@ -1,7 +1,13 @@
+import { getCurrent } from "@/features/auth/actions";
 import SignInCard from "@/features/auth/components/sign-in-card";
+import { redirect } from "next/navigation";
 import { FC } from "react";
 
-const SignInPage: FC = () => {
+const SignInPage: FC = async () => {
+  const user = await getCurrent();
+
+  if (user) redirect("/");
+
   return <SignInCard />;
 };
 

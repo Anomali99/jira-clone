@@ -1,7 +1,13 @@
+import { getCurrent } from "@/features/auth/actions";
 import SignUpCard from "@/features/auth/components/sign-up-card";
+import { redirect } from "next/navigation";
 import { FC } from "react";
 
-const SignUpPage: FC = () => {
+const SignUpPage: FC = async () => {
+  const user = await getCurrent();
+
+  if (user) redirect("/");
+
   return <SignUpCard />;
 };
 
