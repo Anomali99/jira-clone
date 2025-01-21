@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FC } from "react";
 import DottedSeparator from "./dotted-separator";
 import Navigation from "./navigation";
+import WorkspaceSwitcher from "./workspace-switcher";
 
 const Sidebar: FC = () => {
   return (
@@ -13,6 +14,8 @@ const Sidebar: FC = () => {
           <p className="pl-1 text-xl font-bold">Jira Clone</p>
         </div>
       </Link>
+      <DottedSeparator className="my-4" />
+      <WorkspaceSwitcher />
       <DottedSeparator className="my-4" />
       <Navigation />
     </aside>
