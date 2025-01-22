@@ -25,7 +25,7 @@ const WorkspaceAvatar: FC<WorkspaceAvatarProps> = ({
   }
 
   return (
-    <Avatar className={cn("size-10 rounded-md", className)}>
+    <Avatar className={cn("size-10", className)}>
       <AvatarFallback className="text-white bg-blue-600 font-semibold text-lg uppercase">
         {name[0]}
       </AvatarFallback>
