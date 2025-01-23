@@ -19,7 +19,8 @@ interface JoinWorkspaceFormProps {
 }
 
 const JoinWorkspaceForm: FC<JoinWorkspaceFormProps> = ({ initialValue }) => {
-  const { mutate } = useJoinWorkspace();
+    const { mutate } = useJoinWorkspace();
+    
   return (
     <Card className="w-full h-full border-none shadow-none">
       <CardHeader className="p-7">
