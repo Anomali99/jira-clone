@@ -4,6 +4,7 @@ import { FC } from "react";
 import DottedSeparator from "./dotted-separator";
 import Navigation from "./navigation";
 import WorkspaceSwitcher from "./workspace-switcher";
+import Projects from "./projects";
 
 const Sidebar: FC = () => {
   return (
@@ -18,6 +19,8 @@ const Sidebar: FC = () => {
       <WorkspaceSwitcher />
       <DottedSeparator className="my-4" />
       <Navigation />
+      <DottedSeparator className="my-4" />
+      <Projects />
     </aside>
   );
 };
