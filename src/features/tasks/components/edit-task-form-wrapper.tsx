@@ -4,16 +4,23 @@ import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { Loader } from "lucide-react";
 import { FC } from "react";
-import CreateTaskForm from "./create-task-form";
+import { useGetTask } from "../api/use-get-task";
+import EditTaskForm from "./edit-task-form";
 
-interface CreateTaskFormWrapperProps {
+interface EditTaskFormWrapperProps {
   onCancel: () => void;
+  id: string;
 }
 
-const CreateTaskModalWrapper: FC<CreateTaskFormWrapperProps> = ({
+const EditTaskFormWrapper: FC<EditTaskFormWrapperProps> = ({
   onCancel,
+  id,
 }) => {
   const workspaceId = useWorkspaceId();
+
+  const { data: initialValues, isLoading: isLoadingTask } = useGetTask({
+    taskId: id,
+  });
 
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects({
     workspaceId,
@@ -34,7 +41,7 @@ const CreateTaskModalWrapper: FC<CreateTaskFormWrapperProps> = ({
     name: member.name,
   }));
 
-  const isLoading = isLoadingProjects || isLoadingMembers;
+  const isLoading = isLoadingProjects || isLoadingMembers || isLoadingTask;
 
   if (isLoading) {
     return (
@@ -46,13 +53,16 @@ const CreateTaskModalWrapper: FC<CreateTaskFormWrapperProps> = ({
     );
   }
 
+  if (!initialValues) return null;
+
   return (
-    <CreateTaskForm
+    <EditTaskForm
       onCancel={onCancel}
+      initialValues={initialValues}
       projectOptions={projectOptions ?? []}
       memberOptions={memberOptions ?? []}
     />
   );
 };
 
-export default CreateTaskModalWrapper;
+export default EditTaskFormWrapper;
