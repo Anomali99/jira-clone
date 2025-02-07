@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FC, useRef } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { createTaskSchema } from "../schemas";
@@ -46,7 +46,6 @@ const EditTaskForm: FC<EditTaskFormProps> = ({
   initialValues,
 }) => {
   const workspaceId = useWorkspaceId();
-  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { mutate, isPending } = useUpdateTask();
 
@@ -69,10 +68,10 @@ const EditTaskForm: FC<EditTaskFormProps> = ({
         param: { taskId: initialValues.$id },
       },
       {
-        onSuccess: () => {
+        onSuccess: ({ data }) => {
           form.reset();
           onCancel?.();
-          // TODO: Redirect to new task
+          router.push(`/workspaces/${workspaceId}/tasks/${data.$id}`);
         },
       }
     );

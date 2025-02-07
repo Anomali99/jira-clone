@@ -3,7 +3,7 @@ import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader, PlusIcon } from "lucide-react";
-import { FC,useCallback } from "react";
+import { FC, useCallback } from "react";
 import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 import { useGetTasks } from "../api/use-get-tasks";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
@@ -16,23 +16,27 @@ import DataKanban from "./data-kanban";
 import { TaskStatus } from "../types";
 import { useBulkUpdateTask } from "../api/use-bulk-update-task";
 import DataCalendar from "./data-calendar";
+import { useProjectId } from "@/features/projects/hooks/use-project-id";
 
 interface TaskViewSwitcherProps {
   hideProjectFilter?: boolean;
 }
 
-export const TaskViewSwitcher:FC<TaskViewSwitcherProps> = ({hideProjectFilter}) => {
+export const TaskViewSwitcher: FC<TaskViewSwitcherProps> = ({
+  hideProjectFilter,
+}) => {
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
 
   const workspaceId = useWorkspaceId();
+  const paramProjectId = useProjectId();
   const { open } = useCreateTaskModal();
   const { mutate: bulkUpdate } = useBulkUpdateTask();
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: paramProjectId || projectId,
     assigneeId,
     status,
     dueDate,
@@ -48,7 +52,7 @@ export const TaskViewSwitcher:FC<TaskViewSwitcherProps> = ({hideProjectFilter}) 
     ) => {
       bulkUpdate({ json: { tasks } });
     },
-    []
+    [bulkUpdate]
   );
 
   return (
@@ -76,7 +80,7 @@ export const TaskViewSwitcher:FC<TaskViewSwitcherProps> = ({hideProjectFilter}) 
           </Button>
         </div>
         <DottedSeparator className="my-4" />
-        <DataFilters hideProjectFilter={ hideProjectFilter} />
+        <DataFilters hideProjectFilter={hideProjectFilter} />
         <DottedSeparator className="my-4" />
         {isLoadingTasks ? (
           <div className="w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">

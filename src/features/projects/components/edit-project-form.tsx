@@ -78,19 +78,12 @@ const EditProjectForm: FC<EditProjectFormProps> = ({
       ...values,
       image: values.image instanceof File ? values.image : "",
     };
-    mutate(
-      {
-        form: finalValues,
-        param: {
-          projectId: initialValues.$id,
-        },
+    mutate({
+      form: finalValues,
+      param: {
+        projectId: initialValues.$id,
       },
-      {
-        onSuccess: () => {
-          form.reset();
-        },
-      }
-    );
+    });
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -232,7 +225,7 @@ const EditProjectForm: FC<EditProjectFormProps> = ({
               className="mt-6 w-fit ml-auto"
               size="sm"
               variant="destructive"
-              disabled={isPending}
+              disabled={isPending || isDeleteProject}
               onClick={handleDelete}
             >
               Delete Project

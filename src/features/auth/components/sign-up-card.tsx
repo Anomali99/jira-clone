@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/form";
 import { registerSchema } from "../schemas";
 import { useRegister } from "../api/use-register";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 const SignUpCard: FC = () => {
   const { mutate, isPending } = useRegister();
@@ -122,6 +123,7 @@ const SignUpCard: FC = () => {
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4">
         <Button
+          onClick={() => signUpWithGoogle()}
           disabled={isPending}
           variant="secondary"
           size="lg"
@@ -131,6 +133,7 @@ const SignUpCard: FC = () => {
           Sign Up with Google
         </Button>
         <Button
+          onClick={() => signUpWithGithub()}
           disabled={isPending}
           variant="secondary"
           size="lg"

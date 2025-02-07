@@ -52,7 +52,7 @@ const TaskActions: FC<TaskActionsProps> = ({ id, projectId, children }) => {
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem
             onClick={onOpenTask}
-            disabled={false}
+            disabled={isPending}
             className="font-medium p-[10px]"
           >
             <ExternalLinkIcon className="size-4 mr-2 stroke-2" />
@@ -60,7 +60,7 @@ const TaskActions: FC<TaskActionsProps> = ({ id, projectId, children }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={onOpenProject}
-            disabled={false}
+            disabled={isPending}
             className="font-medium p-[10px]"
           >
             <ExternalLinkIcon className="size-4 mr-2 stroke-2" />
@@ -68,7 +68,7 @@ const TaskActions: FC<TaskActionsProps> = ({ id, projectId, children }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => open(id)}
-            disabled={false}
+            disabled={isPending}
             className="font-medium p-[10px]"
           >
             <PencilIcon className="size-4 mr-2 stroke-2" />
@@ -76,7 +76,7 @@ const TaskActions: FC<TaskActionsProps> = ({ id, projectId, children }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={onDelete}
-            disabled={false}
+            disabled={isPending}
             className="text-amber-700 focus:text-amber-700 font-medium p-[10px]"
           >
             <TrashIcon className="size-4 mr-2 stroke-2" />
